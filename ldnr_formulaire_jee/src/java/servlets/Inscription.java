@@ -74,13 +74,19 @@ public class Inscription extends HttpServlet {
     }
 
     // password et confirm ont 3 lettres au moins et sont identiques
-    private void validatePassword(String password, String confirm) {
+    private void validatePassword(String password, String confirm) throws Exception {
         if (!password.isEmpty() && !confirm.isEmpty()) {
-            if (password != confirm) {
-//            throw new Exception("Vos mots de passe ne sont pas identiques.");
+            if (!password.equals(confirm)) {
+                throw new Exception("Vos mots de passe ne sont pas identiques.");
+            }
+        } else {
+            if (password.isEmpty()) {
+                throw new Exception("Veuillez entrer votre mot de passe.");
+            }
+            if (confirm.isEmpty()) {
+                throw new Exception("Veuillez confirmer votre mot de passe.");
             }
         }
-
     }
 
     // champ facultatif name >2 caractères
