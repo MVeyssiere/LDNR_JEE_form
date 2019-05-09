@@ -97,22 +97,21 @@ public class Inscription extends HttpServlet {
             }
         }
         else {
-            throw new Exception("Renseignez votre adresse mail");
+            throw new Exception("Merci de saisir une adresse mail.");
         }
-
     }
 
     // password et confirm ont 3 lettres au moins et sont identiques
     private void validatePassword(String password, String confirm) throws Exception {
         if (!password.isEmpty() && !confirm.isEmpty()) {
             if (!password.equals(confirm)) {
-                throw new Exception("Vos mots de passe doivent être identiques.");
+                throw new Exception("Les mots de passe entrés sont différents. Merci de les saisir à nouveau.");
             } else {
                 throw new Exception("Votre mot de passe doit contenir au moins 3 lettres.");
             }
         } else {
             if (password.isEmpty()) {
-                throw new Exception("Veuillez entrer votre mot de passe.");
+                throw new Exception("Merci de saisir un mot de passe");
             }
             if (confirm.isEmpty()) {
                 throw new Exception("Veuillez confirmer votre mot de passe.");
@@ -122,8 +121,11 @@ public class Inscription extends HttpServlet {
 
     // champ facultatif name >2 caractères
     private void validateName(String name) throws Exception {
+        if (!name.isEmpty() && !name.matches("^[a-zA-Z]{3,}$")) {
+            throw new Exception("Le nom d'utilisateur doit contenir au moins 3 caractères.");
+        }
         if (name.isEmpty()) {
-            throw new Exception("Le nom d'utilisateur doit contenir au moins 2 caractères.");
+            throw new Exception("Merci de saisir un nom d'utilisateur.");
         }
     }
 
