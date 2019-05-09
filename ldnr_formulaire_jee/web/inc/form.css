@@ -37,3 +37,7 @@ form input.noLabel {
 form .mandatory {
     color: #c00;
 }
+
+form .error{
+    color: #900;
+}

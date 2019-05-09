@@ -18,15 +18,19 @@
                 <p>Vous pouvez vous inscrire via ce formulaire.</p>
                 <label for="email">Adresse email <span class="mandatory">*</span></label>
                 <input type="email" id="email" name="email" value="" size="20" maxlength="60" />
+                <span class =" error">${errors.email}</span>
                 <br />
                 <label for="password">Mot de passe <span class="mandatory">*</span></label>
                 <input type="password" id="password" name="password" value="" size="20" maxlength="20" />
+                <span class =" error">${errors.password}</span>
                 <br />
                 <label for="confirm">Confirmation <span class="mandatory">*</span></label>
                 <input type="password" id="confirm" name="confirm" value="" size="20" maxlength="20" />
+                <span class =" error">${errors.confirm}</span>
                 <br />
                 <label for="username">Nom d'utilisateur</label>
                 <input type="text" id="username" name="username" value="" size="20" maxlength="20" />
+                <span class =" error">${errors.username}</span>
                 <br />
                 <input type="submit" value="Inscription" class="noLabel" />
                 <p>Les champs marqués d'un <span class="mandatory">*</span> sont obligatoires.</p>
