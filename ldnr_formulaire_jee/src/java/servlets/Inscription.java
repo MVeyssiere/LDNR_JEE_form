@@ -90,8 +90,10 @@ public class Inscription extends HttpServlet {
     }
 
     // champ facultatif name >2 caractères
-    private void validateName(String name) {
-
+    private void validateName(String name) throws Exception {
+        if (name.isEmpty()) {
+            throw new Exception("Veuillez saisir votre nom.");
+        }
     }
 
 }
