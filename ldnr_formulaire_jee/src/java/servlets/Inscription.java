@@ -1,8 +1,8 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +20,9 @@ public class Inscription extends HttpServlet {
     private static final String PWD = "password";
     private static final String CONFIRM = "confirm";
     private static final String USERNAME = "username";
+
+    private static final String ERRORS = "errors";
+    private static final String RESULT = "result";
 
 
     /**
@@ -42,21 +45,47 @@ public class Inscription extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        // champs obligatoires non vides
 
+        String result;
+        Map<String, String> errors = new HashMap<>();
+
+        /*  récupération des paramètres */
         String email = req.getParameter(EMAIL);
         String password = req.getParameter(PWD);
         String confirm = req.getParameter(CONFIRM);
         String userName = req.getParameter(USERNAME);
 
+        /* gestion des cas d'erreur pour chaque méthode de vérification*/
         try {
             validateEmail(email);
+        } catch (Exception ex) {
+//                Logger.getLogger(Inscription.class.getName()).log(Level.SEVERE, null, ex);
+            errors.put(EMAIL, ex.getMessage());
+        }
+        try {
             validatePassword(password, confirm);
+        } catch (Exception ex) {
+            errors.put(PWD, ex.getMessage());
+        }
+        try {
             validateName(userName);
         } catch (Exception ex) {
-            Logger.getLogger(Inscription.class.getName()).log(Level.SEVERE, null, ex);
+            errors.put(USERNAME, ex.getMessage());
         }
 
+        /* gestion affichage du message d'erreur*/
+        if (errors.isEmpty()) {
+            result = "Succès de l'inscription";
+        } else {
+            result = "Echec de l'inscription";
+        }
+
+        /* stockage erreurs et results dans l'objet request*/
+        req.setAttribute(ERRORS, errors);
+        req.setAttribute(RESULT, result);
+
+        /* Transmission des objets request/response au JSP*/
+        this.getServletContext().getRequestDispatcher(VIEW).forward(req, resp);
     }
 
     // champ email valide
