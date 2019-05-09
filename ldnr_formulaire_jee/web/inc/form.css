@@ -41,3 +41,7 @@ form .mandatory {
 form .error{
     color: #900;
 }
+
+form .success{
+    color: #090;
+}

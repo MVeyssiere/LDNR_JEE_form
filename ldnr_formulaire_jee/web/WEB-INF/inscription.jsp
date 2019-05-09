@@ -34,6 +34,7 @@
                 <br />
                 <input type="submit" value="Inscription" class="noLabel" />
                 <p>Les champs marqués d'un <span class="mandatory">*</span> sont obligatoires.</p>
+                <p class="${(empty errors) ? 'success' : 'error'}"> ${result} </p>
             </fieldset>
         </form>
     </body>

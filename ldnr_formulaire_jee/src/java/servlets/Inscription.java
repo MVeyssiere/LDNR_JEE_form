@@ -107,7 +107,9 @@ public class Inscription extends HttpServlet {
             if (!password.equals(confirm)) {
                 throw new Exception("Les mots de passe entrés sont différents. Merci de les saisir à nouveau.");
             } else {
-                throw new Exception("Votre mot de passe doit contenir au moins 3 lettres.");
+                if (!password.matches("^.{3,}$")) {
+                    throw new Exception("Votre mot de passe doit contenir au moins 3 lettres.");
+                }
             }
         } else {
             if (password.isEmpty()) {
@@ -121,7 +123,7 @@ public class Inscription extends HttpServlet {
 
     // champ facultatif name >2 caractères
     private void validateName(String name) throws Exception {
-        if (!name.isEmpty() && !name.matches("^[a-zA-Z]{3,}$")) {
+        if (!name.isEmpty() && !name.matches("^[a-zA-Z]{3,}")) {
             throw new Exception("Le nom d'utilisateur doit contenir au moins 3 caractères.");
         }
         if (name.isEmpty()) {
