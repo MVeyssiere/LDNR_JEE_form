@@ -78,8 +78,11 @@ public final class InscriptionForm {
         }
     }
 
+    private void setErrors(String field, String message) {
+        errors.put(field, message);
+    }
 
-    public void inscribeUser(HttpServletRequest request) {
+    public User inscribeUser(HttpServletRequest request) {
         /* Récupération des champs du formulaire. */
         String mail = getParamValue(request, EMAIL);
         String pass = getParamValue(request, PWD);
@@ -96,19 +99,27 @@ public final class InscriptionForm {
             validateEmail(mail);
         } catch (Exception ex) {
 //                Logger.getLogger(Inscription.class.getName()).log(Level.SEVERE, null, ex);
-            errors.put(EMAIL, ex.getMessage());
+            setErrors(EMAIL, ex.getMessage());
         }
         try {
             validatePassword(pass, confirm);
         } catch (Exception ex) {
-            errors.put(PWD, ex.getMessage());
+            setErrors(PWD, ex.getMessage());
         }
         try {
             validateName(name);
         } catch (Exception ex) {
-            errors.put(USERNAME, ex.getMessage());
+            setErrors(USERNAME, ex.getMessage());
         }
 
-    }
+        /* gestion affichage du message d'erreur*/
+        if (errors.isEmpty()) {
+            result = "Succès de l'inscription";
+        } else {
+            result = "Echec de l'inscription";
+        }
 
+        return user;
+
+    }
 }
