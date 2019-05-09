@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <!-- Configuration du temps de session avant déconnexion -->
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    
+    <!-- Configuration de l'inclusion systématique de la bibliothèque JSTL core 
+    et de l'encodage des pages JSP en UTF8 -->
+    <jsp-config>
+        <jsp-property-group> 
+            <url-pattern>*.jsp</url-pattern> 
+            <include-prelude>/WEB-INF/taglibs.jsp</include-prelude> 
+        </jsp-property-group> 
+    </jsp-config>
+
+    <!-- Configuration du mapping des contrôleurs -->
+    <servlet>
+        <servlet-name>inscription</servlet-name>
+        <servlet-class>servlets.Inscription</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>inscription</servlet-name>
+        <url-pattern>/inscription</url-pattern>
+    </servlet-mapping>
+</web-app>
