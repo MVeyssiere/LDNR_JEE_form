@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +16,11 @@ public class Inscription extends HttpServlet {
 
     /* Des constantes */
     public static final String VIEW = "/WEB-INF/inscription.jsp";
+    private static final String EMAIL = "email";
+    private static final String PWD = "password";
+    private static final String CONFIRM = "confirm";
+    private static final String USERNAME = "username";
+
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -37,23 +44,47 @@ public class Inscription extends HttpServlet {
             throws ServletException, IOException {
         // champs obligatoires non vides
 
-        String email = req.getParameter("email");
+        String email = req.getParameter(EMAIL);
+        String password = req.getParameter(PWD);
+        String confirm = req.getParameter(CONFIRM);
+        String userName = req.getParameter(USERNAME);
 
+        try {
+            validateEmail(email);
+            validatePassword(password, confirm);
+            validateName(userName);
+        } catch (Exception ex) {
+            Logger.getLogger(Inscription.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
     // champ email valide
-    private void validateEmail() {
+    private void validateEmail(String email) throws Exception {
+        if (!email.isEmpty()) {  //si la case mail est remplie
+            //si mail non valide
+            if (!email.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")) {
+                throw new Exception("Le format de l'email n'est pas valide.");
+            }
+        }
+        else {
+            throw new Exception("Renseignez votre adresse mail");
+        }
 
     }
 
     // password et confirm ont 3 lettres au moins et sont identiques
-    private void validatePassword() {
+    private void validatePassword(String password, String confirm) {
+        if (!password.isEmpty() && !confirm.isEmpty()) {
+            if (password != confirm) {
+//            throw new Exception("Vos mots de passe ne sont pas identiques.");
+            }
+        }
 
     }
 
     // champ facultatif name >2 caractères
-    private void validateName() {
+    private void validateName(String name) {
 
     }
 
