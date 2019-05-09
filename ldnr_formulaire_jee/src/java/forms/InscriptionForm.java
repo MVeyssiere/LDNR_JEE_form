@@ -91,7 +91,7 @@ public final class InscriptionForm {
 
         User user = new User();
         // setting of values of the bean object user
-        user.setEmail(EMAIL);
+        user.setEmail(mail);
         user.setName(name);
         user.setPassword(pass);
 

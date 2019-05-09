@@ -17,24 +17,24 @@
                 <legend>Inscription</legend>
                 <p>Vous pouvez vous inscrire via ce formulaire.</p>
                 <label for="email">Adresse email <span class="mandatory">*</span></label>
-                <input type="email" id="email" name="email" value="<c:out value="${param.email}" />" size="20" maxlength="60" />
-                <span class =" error">${errors.email}</span>
+                <input type="email" id="email" name="email" value="<c:out value="${user.email}" />" size="20" maxlength="60" />
+                <span class =" error">${form.errors.mail}</span>
                 <br />
                 <label for="password">Mot de passe <span class="mandatory">*</span></label>
-                <input type="password" id="password" name="password" value="<c:out value="${param.password}" />" size="20" maxlength="20" />
-                <span class =" error">${errors.password}</span>
+                <input type="password" id="password" name="password" value="<c:out value="${user.password}" />" size="20" maxlength="20" />
+                <span class =" error">${form.errors.pass}</span>
                 <br />
                 <label for="confirm">Confirmation <span class="mandatory">*</span></label>
-                <input type="password" id="confirm" name="confirm" value="<c:out value="${param.confirm}" />"size="20" maxlength="20" />
-                <span class =" error">${errors.confirm}</span>
+                <input type="password" id="confirm" name="confirm" value="" size="20" maxlength="20" />
+                <span class =" error">${form.errors.confirm}</span>
                 <br />
                 <label for="username">Nom d'utilisateur</label>
-                <input type="text" id="username" name="username" value="<c:out value = "${param.username}" />" size="20" maxlength="20" />
-                <span class =" error">${errors.username}</span>
+                <input type="text" id="username" name="username" value="<c:out value = "${user.name}" />" size="20" maxlength="20" />
+                <span class =" error">${form.errors.name}</span>
                 <br />
                 <input type="submit" value="Inscription" class="noLabel" />
                 <p>Les champs marqués d'un <span class="mandatory">*</span> sont obligatoires.</p>
-                <p class="${(empty errors) ? 'success' : 'error'}"> ${result} </p>
+                <p class="${(empty form.errors) ? 'success' : 'error'}"> ${form.result} </p>
             </fieldset>
         </form>
     </body>

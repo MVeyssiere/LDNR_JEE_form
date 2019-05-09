@@ -40,10 +40,12 @@ public class Inscription extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
+        // création de l'objet form
         InscriptionForm form = new InscriptionForm();
+        // Création de l'objet user
         User user = form.inscribeUser(req);
 
-        /* stockage erreurs et results dans l'objet request*/
+        /* stockage formulaire et bean dans l'objet request*/
         req.setAttribute(ATT_FORM, form);
         req.setAttribute(ATT_USER, user);
 
