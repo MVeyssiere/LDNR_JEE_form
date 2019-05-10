@@ -9,7 +9,7 @@ import java.util.List;
  * @author MarineV
  * @param <T>le type du bean associé // //
  */
-public interface DAO<T> {
+public abstract class DAO<T> {
 
     Connection connection = SQLConnection.getInstance();
 
@@ -19,21 +19,21 @@ public interface DAO<T> {
      * @param id
      * @return l'objet ayant l'identifiant id
      */
-    T find(Integer id);
+    public abstract T find(Integer id);
 
     /**
      *
      * @param obj l'objet a perenniser en DB
      * @return l'objet stocké en DB
      */
-    T create(T obj);
+    public abstract T create(T obj);
 
     /**
      * Supprime l'objet en parametre de la database
      *
      * @param obj
      */
-    void delete(T obj);
+    public abstract void delete(T obj);
 
     /**
      * Modifie la DB pour correspondre l'objet passe en parametre
@@ -41,12 +41,12 @@ public interface DAO<T> {
      * @param obj l'objet a perenniser dans la DB
      * @return l'objet hydraté depuis la DB
      */
-    T update(T obj);
+    public abstract T update(T obj);
 
     /**
      * Retourne une collection d'objet hydraté(eponge depuis la DB) depuis la DB
      *
      * @return
      */
-    List<T> findAll();
+    public abstract List<T> findAll();
 }

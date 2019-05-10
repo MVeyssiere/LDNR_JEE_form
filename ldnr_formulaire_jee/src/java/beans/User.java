@@ -18,6 +18,10 @@ public class User {
         return "User{" + "id_user=" + id_user + ", email=" + email + ", password=" + password + ", name=" + name + '}';
     }
 
+    public User(String password) {
+        this.password = password;
+    }
+
     public User(String name, String password) {
         this.name = name;
         this.password = password;
@@ -28,12 +32,27 @@ public class User {
         this.password = password;
     }
 
-    public User(Integer id_user, String name, String email, String password) {
+
+    public User(Integer id_user, String email, String password, String name) {
         this.id_user = id_user;
         this.name = name;
         this.email = email;
         this.password = password;
     }
+
+    public User(String email, String password, String name, Integer id_user) {
+        this.id_user = id_user;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String email, String password, String name) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
 
     public Integer getId_user() {
         return id_user;

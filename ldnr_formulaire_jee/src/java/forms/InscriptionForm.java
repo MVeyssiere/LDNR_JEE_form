@@ -1,5 +1,6 @@
 package forms;
 
+import DAO.DAOUser;
 import beans.User;
 import java.util.HashMap;
 import java.util.Map;
@@ -90,10 +91,7 @@ public final class InscriptionForm {
         String name = getParamValue(request, USERNAME);
 
         User user = new User();
-        // setting of values of the bean object user
-        user.setEmail(mail);
-        user.setName(name);
-        user.setPassword(pass);
+        DAOUser daouser = new DAOUser();
 
         try {
             validateEmail(mail);
@@ -111,9 +109,24 @@ public final class InscriptionForm {
         } catch (Exception ex) {
             setErrors(USERNAME, ex.getMessage());
         }
+//        try {
+//            daouser.verifyEmail(mail);
+//        } catch (Exception ex) {
+//            setErrors(EMAIL, "Vous êtes déjà inscrit. Veuillez vous rendre sur la page de connexion.");
+//        }
 
+        // autre méthode: findAll puis parcourir les mails de la liste et regarder si y a un match
+        if (daouser.verifyEmail(mail)) {
+            setErrors(EMAIL, "Vous êtes déjà inscrit. Veuillez vous rendre sur la page de connexion.");
+        }
+        //System.out.println(daouser.verifyEmail(mail));
+        System.out.println(errors.toString());
         /* gestion affichage du message d'erreur*/
         if (errors.isEmpty()) {
+            user.setEmail(mail);
+            user.setName(name);
+            user.setPassword(pass);
+            daouser.create(user);
             result = "Succès de l'inscription";
         } else {
             result = "Echec de l'inscription";
@@ -121,14 +134,4 @@ public final class InscriptionForm {
 
         return user;
     }
-//
-//    public void userRecording(){
-//       DAOUser user = new DAOUser();
-//        for (User u : user.findAll()) {
-//            String d = u.getId_user().toString();
-//            String e = u.getName();
-//            String f = u.getEmail();
-//            String g = u.getPassword();
-//        }
-
 }

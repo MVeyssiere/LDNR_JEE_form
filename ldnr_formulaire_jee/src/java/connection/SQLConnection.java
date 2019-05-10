@@ -38,11 +38,15 @@ public class SQLConnection {
                     + "/" + config.getProperty("database");
 
             try {
+                Class.forName("com.mysql.jdbc.Driver");
                 connection = DriverManager.getConnection(url, config);
             } catch (SQLException ex) {
                 Logger.getLogger(SQLConnection.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(SQLConnection.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        System.out.println(connection);
         return connection;
     }
 }

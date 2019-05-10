@@ -1,5 +1,6 @@
 package forms;
 
+import DAO.DAOUser;
 import beans.User;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,14 +37,27 @@ public class ConnectionForm {
         } catch (Exception e) {
             setErrors(EMAIL, e.getMessage());
         }
-        user.setEmail(mail);
+
+        DAOUser daouser = new DAOUser();
+        if (daouser.verifyEmail(mail)) {
+            user.setEmail(mail);
+        } else {
+            setErrors(EMAIL, "Vous n'êtes pas inscrit. Veuillez vous rendre sur la page d'inscription.");
+        }
+
+        //System.out.println(daouser.verifyEmail(mail));
 
         try {
             validatePassword(pwd);
         } catch (Exception e) {
             setErrors(PASS, e.getMessage());
         }
-        user.setPassword(pwd);
+
+        if (pwd.matches(daouser.findFromEmail(mail).getPassword())) {
+            user.setPassword(pwd);
+        } else {
+            setErrors(PASS, "Mot de passe incorrect. Veuillez le ressaisir.");
+        }
 
         /* Initialisation du résultat global de la validation. */
         if (errors.isEmpty()) {
