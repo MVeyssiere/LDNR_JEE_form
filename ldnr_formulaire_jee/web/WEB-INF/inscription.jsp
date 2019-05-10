@@ -18,11 +18,12 @@
                 <p>Vous pouvez vous inscrire via ce formulaire.</p>
                 <label for="email">Adresse email <span class="mandatory">*</span></label>
                 <input type="email" id="email" name="email" value="<c:out value="${user.email}" />" size="20" maxlength="60" />
-                <span class =" error">${form.errors.mail}</span>
+                <span class =" error">${form.errors.email}</span>
+                
                 <br />
                 <label for="password">Mot de passe <span class="mandatory">*</span></label>
                 <input type="password" id="password" name="password" value="<c:out value="${user.password}" />" size="20" maxlength="20" />
-                <span class =" error">${form.errors.pass}</span>
+                <span class =" error">${form.errors.password}</span>
                 <br />
                 <label for="confirm">Confirmation <span class="mandatory">*</span></label>
                 <input type="password" id="confirm" name="confirm" value="" size="20" maxlength="20" />

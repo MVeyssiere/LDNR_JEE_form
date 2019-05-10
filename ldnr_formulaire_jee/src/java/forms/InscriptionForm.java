@@ -16,6 +16,8 @@ public final class InscriptionForm {
     private static final String CONFIRM = "confirm";
     private static final String USERNAME = "username";
 
+    DAOUser daouser = new DAOUser();
+
     String result;
     Map<String, String> errors = new HashMap<>();
 
@@ -43,6 +45,8 @@ public final class InscriptionForm {
             //si mail non valide
             if (!email.matches("([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)")) {
                 throw new Exception("Le format de l'email n'est pas valide.");
+            } else if (daouser.verifyEmail(email)) { // si mail déjà existant dans la base de données
+                throw new Exception("Vous êtes déjà inscrit. Veuillez vous rendre sur la page de connexion.");
             }
         } else {
             throw new Exception("Merci de saisir une adresse mail.");
@@ -91,12 +95,10 @@ public final class InscriptionForm {
         String name = getParamValue(request, USERNAME);
 
         User user = new User();
-        DAOUser daouser = new DAOUser();
 
         try {
             validateEmail(mail);
         } catch (Exception ex) {
-//                Logger.getLogger(Inscription.class.getName()).log(Level.SEVERE, null, ex);
             setErrors(EMAIL, ex.getMessage());
         }
         try {
@@ -109,19 +111,12 @@ public final class InscriptionForm {
         } catch (Exception ex) {
             setErrors(USERNAME, ex.getMessage());
         }
-//        try {
-//            daouser.verifyEmail(mail);
-//        } catch (Exception ex) {
-//            setErrors(EMAIL, "Vous êtes déjà inscrit. Veuillez vous rendre sur la page de connexion.");
-//        }
 
         // autre méthode: findAll puis parcourir les mails de la liste et regarder si y a un match
-        if (daouser.verifyEmail(mail)) {
-            setErrors(EMAIL, "Vous êtes déjà inscrit. Veuillez vous rendre sur la page de connexion.");
-        }
         //System.out.println(daouser.verifyEmail(mail));
         System.out.println(errors.toString());
-        /* gestion affichage du message d'erreur*/
+
+        //si il n'y a pas eu d'erreur créer le user dans la  bdd
         if (errors.isEmpty()) {
             user.setEmail(mail);
             user.setName(name);
@@ -129,7 +124,7 @@ public final class InscriptionForm {
             daouser.create(user);
             result = "Succès de l'inscription";
         } else {
-            result = "Echec de l'inscription";
+            result = errors.toString() + " Echec de l'inscription";
         }
 
         return user;
