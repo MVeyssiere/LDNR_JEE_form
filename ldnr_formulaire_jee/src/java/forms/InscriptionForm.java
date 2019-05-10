@@ -120,6 +120,15 @@ public final class InscriptionForm {
         }
 
         return user;
-
     }
+//
+//    public void userRecording(){
+//       DAOUser user = new DAOUser();
+//        for (User u : user.findAll()) {
+//            String d = u.getId_user().toString();
+//            String e = u.getName();
+//            String f = u.getEmail();
+//            String g = u.getPassword();
+//        }
+
 }

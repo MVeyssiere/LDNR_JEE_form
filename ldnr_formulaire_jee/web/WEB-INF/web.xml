@@ -2,9 +2,7 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <!-- Configuration du temps de session avant déconnexion -->
     <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
+        <session-timeout>1</session-timeout>
     </session-config>
     
     <!-- Configuration de l'inclusion systématique de la bibliothèque JSTL core 
@@ -25,4 +23,25 @@
         <servlet-name>inscription</servlet-name>
         <url-pattern>/inscription</url-pattern>
     </servlet-mapping>
+    
+    <!-- mapping connexion -->
+    <servlet>
+        <servlet-name>connection</servlet-name>
+        <servlet-class>servlets.Connection</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>connection</servlet-name>
+        <url-pattern>/connection</url-pattern>
+    </servlet-mapping>
+    
+    <!-- mapping déconnexion -->
+    <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>servlets.Logout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
 </web-app>

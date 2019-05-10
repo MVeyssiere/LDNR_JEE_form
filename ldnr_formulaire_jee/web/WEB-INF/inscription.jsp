@@ -37,5 +37,6 @@
                 <p class="${(empty form.errors) ? 'success' : 'error'}"> ${form.result} </p>
             </fieldset>
         </form>
+            <c:import url="footer.jsp"/>
     </body>
 </html>
